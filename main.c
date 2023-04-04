@@ -1,4 +1,7 @@
 #include "monty.h"
+
+FILE *file = NULL;
+
 /**
  * main- runs monty bytercode interpreter
  * @argc: ticker
@@ -9,8 +12,9 @@
 
 int main(int argc, char **argv)
 {
-	void (*f)(stack_t **, unsigned int)= NULL;
+	void (*f)(stack_t **, unsigned int) = NULL;
 	char *buffer = NULL, op[50] = {'\0'}, *token = NULL;
+	char *pushNum = NULL;
 	size_t bufsize = 0;
 	stack_t *stack = NULL;
 	unsigned int line_number = 1;
@@ -38,7 +42,7 @@ int main(int argc, char **argv)
 			if (!token)
 			{
 				free(buffer), buffer = NULL, free_stack(&stack);
-				fprintf(stderr, "L%d: USAGE: push integer\n", line_number),
+				fprintf(stderr, "L%d: USAGE: push integer\n", line_number);
 			}
 			strcpy(pushNum, token);
 		}

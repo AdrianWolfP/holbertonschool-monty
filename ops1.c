@@ -59,7 +59,7 @@ void pop(stack_t **stack, unsigned int line_number)
  * @line_number: current line number
  */
 
-void pint(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number)
 {
 	if (!(*stack))
 	{
