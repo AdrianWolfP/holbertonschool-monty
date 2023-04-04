@@ -3,6 +3,7 @@
  * main- runs monty bytercode interpreter
  * @argc: ticker
  * @argv: argus
+ * @pushNum: numbers push
  * Return: 0 (on success)
  */
 
@@ -21,7 +22,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "ERROR: Can't open file %s\n", argv[1]), exit(EXIT_FAILURE);
 	for (; getline(&buffer, &bufsize, file) != EOF; line_number++)
 	{
-		token = strtok(buffer), (" \t\n");
+		token = strtok((buffer), " \t\n");
 		if (!token)
 		{
 			free(buffer), buffer = NULL;
@@ -29,8 +30,6 @@ int main(int argc, char **argv)
 		}
 		strcpy(op, token);
 		f = get_func(&stack, line_number, op);
-		if (!f)
-			fprintf(stderr, line_number, op);
 		if (!f)
 			fprintf(stderr, "ERROR: malloc failed\n"), err();
 		if (strcmp(op, "push") == 0)
