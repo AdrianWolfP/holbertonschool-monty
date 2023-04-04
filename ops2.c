@@ -30,7 +30,7 @@ void swap(stack_t **stack, unsigned int line_number)
 
 	if (!(*stack) || !(*stack)->next)
 	{
-		fprint(stderr, "L%d: Can't swap, stack too short\n", line_number);
+		fprintf(stderr, "L%d: Can't swap, stack too short\n", line_number);
 		fclose(file);
 		exit(EXIT_FAILURE);
 	}
@@ -51,7 +51,7 @@ void add(stack_t **stack, unsigned int line_number)
 
 	if (!temp || !temp->next)
 	{
-		fprint(stderr, "L%d: Can't add, stack short\n", line_number);
+		fprintf(stderr, "L%d: Can't add, stack short\n", line_number);
 		free_stack(stack);
 		err();
 	}

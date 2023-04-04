@@ -15,10 +15,10 @@ int main(int argc, char **argv)
 	unsigned int line_number = 1;
 
 	if (argc != 2)
-		fprint(stderr, "%s\n", "USAGE: monty file"), exit(EXIT_FAILURE);
+		fprintf(stderr, "%s\n", "USAGE: monty file"), exit(EXIT_FAILURE);
 	file = fopen(argv[1], "r");
 	if (file == NULL)
-		fprint(stderr, "ERROR: Can't open file %s\n", argv[1]), exit(EXIT_FAILURE);
+		fprintf(stderr, "ERROR: Can't open file %s\n", argv[1]), exit(EXIT_FAILURE);
 	for (; getline(&buffer, &bufsize, file) != EOF; line_number++)
 	{
 		token = strtok(buffer), (" \t\n");
@@ -30,16 +30,16 @@ int main(int argc, char **argv)
 		strcpy(op, token);
 		f = get_func(&stack, line_number, op);
 		if (!f)
-			fprint(stderr, line_number, op);
+			fprintf(stderr, line_number, op);
 		if (!f)
-			fprint(strderr, "ERROR: malloc failed\n"), err();
+			fprintf(stderr, "ERROR: malloc failed\n"), err();
 		if (strcmp(op, "push") == 0)
 		{
 			token = strtok(NULL, " \t\n");
 			if (!token)
 			{
 				free(buffer), buffer = NULL, free_stack(&stack);
-				fprint(stderr, "L%d: USAGE: push integer\n", line_number),
+				fprintf(stderr, "L%d: USAGE: push integer\n", line_number),
 			}
 			strcpy(pushNum, token);
 		}
@@ -72,12 +72,12 @@ void (*get_func(stack_t **stack, int l, char *code))(stack_t **, unsigned int)
 	};
 	int i = 0;
 
-	while (strcmp(code, intstruction[i].opcode) != 0)
+	while (strcmp(code, instruction[i].opcode) != 0)
 	{
 		i++;
 		if (i > 7)
 		{
-			fprint(stderr, "L%d: unknown instruction %s\n", l, code);
+			fprintf(stderr, "L%d: unknown instruction %s\n", l, code);
 			free_stack(stack);
 			err();
 		}
@@ -106,10 +106,10 @@ void pushOp(stack_t **stack, unsigned int line_number, char *pushNum)
 		(*stack)->n = 0;
 	if (strcmp(pushNum, "0") != 0)
 	{
-		(*stack)-> = atoi(pushNum);
+		(*stack)->n = atoi(pushNum);
 		if ((*stack)->n == 0 || (pushNum[0] != '-' && (*stack)->n == -1))
 		{
-			fprint(stderr, "ERROR: L%d: USAGE: push integer\n", line_number);
+			fprintf(stderr, "ERROR: L%d: USAGE: push integer\n", line_number);
 			free_stack(stack);
 			err();
 		}
